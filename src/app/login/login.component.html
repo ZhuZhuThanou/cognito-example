@@ -1,20 +1,26 @@
-
 <div>
-<label>Email address</label>
-<input type="email"  
-        id="inputUsername"  
-        placeholder="Email address" 
-        name="userEmail" 
-        [(ngModel)]="user.email"
-        required autofocus>
+  <div>
+    <label>Email address</label>
+    <input type="email" id="inputUsername" 
+      placeholder="Email address" 
+      name="userEmail" 
+      [(ngModel)]="user.email"
+      size="30"
+      required autofocus />
+  </div>
+  <div>
+    <label>Password</label>
+    <input type="password" id="inputPassword" placeholder="Password" name="password" [(ngModel)]="user.password"
+      required />
+  </div>
+  <button type="button" (click)="doLogin()">Login</button>
 </div>
 <div>
-<label>Password</label>
-<input type="password" 
-        id="inputPassword"   
-        placeholder="Password" 
-        name="password"
-        [(ngModel)]="user.password"
-        required>    
+  <div>
+    <h3>MFA</h3>
+    <label>Enter code</label>
+    <input type="text" id="mfaCode" placeholder="MFA Code" name="mfaCode" [(ngModel)]="user.mfaCode" required />
+  </div>
+  <button type="button" (click)="doMFAVerify()">Verify MFA Code</button>
+  <button type="button" (click)="doResendMFACode()">Resend MFA Code</button>
 </div>
-<button type="button" (click)="doLogin()">Login</button>

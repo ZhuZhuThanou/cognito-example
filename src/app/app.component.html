@@ -2,4 +2,10 @@
 
 
 <h1>Hello Cognito</h1>
+<h3>Is logged in? {{loggedIn}}</h3>
+<div class="auth-features">
+  <a [routerLink]="['/login']" routerLinkActive="router-link-active">Log In</a> &nbsp;&nbsp;
+  <a [routerLink]="['/logout']" routerLinkActive="router-link-active">Log Out</a> 
+</div>
+
 <router-outlet></router-outlet>
