@@ -1,1 +1,45 @@
-<p>register works!</p>
+<div>
+  <h4>Register</h4>
+  <div>
+    <label>Email address</label>
+    <input type="email" id="inputUsername" 
+      placeholder="Email address" 
+      name="userEmail" 
+      [(ngModel)]="user.email"
+      size="30"
+      required autofocus />
+  </div>
+  <div>
+    <label>Password</label>
+    <input type="password" id="inputPassword" 
+      placeholder="Password" 
+      name="password" [(ngModel)]="user.password"
+      required />
+  </div>
+  <div>
+    <label>Confirm password</label>
+    <input type="password" id="inputConfirmPassword" 
+      placeholder="Confirm password" 
+      name="confirmPassword" 
+      [(ngModel)]="user.confirmPassword"
+      required />
+  </div>
+  <div>
+    <label>Phone number</label>
+    <input type="text" id="inputPhoneNumber" 
+      placeholder="+11234567890" 
+      name="phoneNumber" 
+      [(ngModel)]="user.phoneNumber"
+      required />
+  </div>
+  <button type="button" (click)="doRegister()">Register</button>
+</div>
+<div>
+  <div>
+    <h3>MFA</h3>
+    <label>Enter code</label>
+    <input type="text" id="mfaCode" placeholder="Confirmation Code" name="mfaCode" [(ngModel)]="user.mfaCode" required />
+  </div>
+  <button type="button" (click)="doConfirmationCodeVerify()">Verify confirmation code</button>
+  <button type="button" (click)="doResendConfirmationCode()">Resend confirmation code</button>
+</div>

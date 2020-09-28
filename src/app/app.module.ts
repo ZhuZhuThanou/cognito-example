@@ -13,13 +13,16 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { AuthenticationService } from './authentication/authentication.service';
 import { HomeComponent } from './home/home.component';
 
-// need to externalize these variables
+need to externalize these variables
 Amplify.configure({Auth: {
   identityPoolId: 'ca-central-1:x',
   region: 'ca-central-1',
   userPoolId: 'ca-central-1_x',
   userPoolWebClientId: 'x'
 }});
+
+
+
 
 @NgModule({
   declarations: [

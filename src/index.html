@@ -13,6 +13,31 @@
   }
 </script>
 <body>
+  
   <app-root></app-root>
+
+  <hr>
+  <h3>Apply here: 90% goes to URL A, 10% goes to URL B </h3>
+  <span id="url-area"></span>
+  
+  <script>
+    let value = Math.floor(Math.random() * (100 - 1 + 1) + 1);
+    var span = document.getElementById("url-area");
+    console.log('Random value', value);
+    if (value <= 90) {
+      span.innerHTML = '<a href="">go to url A</a>';
+    } else {
+      span.innerHTML = '<a href="">go to url B</a>';
+    }
+</script>
+<code>
+  <p></p>
+  logic:
+  <ul>
+    <li>Randomly generate a value between 1 and 100 inclusive</li>
+    <li>If generated value <= 90, show URL A</li>
+    <li>If generated value > 90, show URL B</li>
+  </ul>
+</code>
 </body>
 </html>

@@ -6,13 +6,15 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthenticationService {
-
+  private registerUserTemp: any;
+  private isRegisteredSuccess: BehaviorSubject<boolean>;
+  
   private congitoUser: CognitoUser;
   private isLoggedIn: BehaviorSubject<boolean>;
-
-
+  
   constructor() {
     this.isLoggedIn = new BehaviorSubject<boolean>(false);
+    this.isRegisteredSuccess = new BehaviorSubject<boolean>(false);
    }
 
   setLoggedIn(isLoggedIn): void {
@@ -28,6 +30,44 @@ export class AuthenticationService {
       return this.congitoUser.getUsername();
     } else {
       return '';
+    }
+  }
+
+  async registerUser(username: string, password: string, phoneNumber: string): Promise<any> {
+    try {
+        console.log('signUp: ', username, password, phoneNumber);
+        this.registerUserTemp = await Auth.signUp({
+            username,
+            password,
+            attributes: {
+              phone_number: phoneNumber   // optional - E.164 number convention
+            }
+        });
+        console.log(this.registerUserTemp);
+        console.log('next step: prompt the user to enter the confirmation code from the phone');
+    } catch (error) {
+        console.log('error signing up:', error);
+    }
+}
+
+
+  async resendRegistrationConfirmationCode(userName): Promise<any>{
+    try {
+        await Auth.resendSignUp(userName);
+        console.log('code resent successfully');
+    } catch (err) {
+        console.log('error resending code: ', err);
+    }
+  }
+
+  async confirmRegisteredUser(username: string, code: string): Promise<any> {
+    try {
+      console.log('confirmRegisteredUser: ', username, code);
+      let item = await Auth.confirmSignUp(username, code);
+      console.log('confirmRegisteredUser return value: ', item);
+      console.log('next step: redirect the user to login to the session');
+    } catch (error) {
+        console.log('error confirming sign up', error);
     }
   }
 
