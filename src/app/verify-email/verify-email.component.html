@@ -1,0 +1,16 @@
+<div>
+  <h2>Verify user email</h2>
+  <button (click)="verifyEmail()">Verify my email</button>
+</div>
+<div>
+  <label>Enter code</label>
+  <input
+    type="text"
+    id="emailConfirmCode"
+    placeholder="Confirmation Code"
+    name="emailConfirmCode"
+    [(ngModel)]="user.confirmCode"
+    required
+  />
+  <button (click)="verifyCurrentUserEmailCode()">Confirm code</button>
+</div>

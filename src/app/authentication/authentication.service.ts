@@ -8,10 +8,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class AuthenticationService {
   private registerUserTemp: any;
   private isRegisteredSuccess: BehaviorSubject<boolean>;
-  
+
   private congitoUser: CognitoUser;
   private isLoggedIn: BehaviorSubject<boolean>;
-  
+
   constructor() {
     this.isLoggedIn = new BehaviorSubject<boolean>(false);
     this.isRegisteredSuccess = new BehaviorSubject<boolean>(false);
@@ -37,9 +37,10 @@ export class AuthenticationService {
     try {
         console.log('signUp: ', username, password, phoneNumber);
         this.registerUserTemp = await Auth.signUp({
-            username,
+          username,
             password,
             attributes: {
+              email: username,
               phone_number: phoneNumber   // optional - E.164 number convention
             }
         });
@@ -95,14 +96,50 @@ export class AuthenticationService {
     }
   }
 
+  async verifyCurrentUserEmail(): Promise<any> {
+    try {
+      const returnValue = await Auth.verifyUserAttribute(this.congitoUser, 'email');
+      console.log('verifyCurrentUserEmail', returnValue);
+    } catch (error) {
+      console.log('verifyCurrentUserEmail', error);
+    }
+  }
+
+  async verifyCurrentUserEmailCode(code: string): Promise<any> {
+    try {
+      const returnValue = await Auth.verifyUserAttributeSubmit(this.congitoUser, 'email', code);
+      console.log('verifyCurrentUserEmailCode', returnValue);
+    } catch (error) {
+      console.log('verifyCurrentUserEmailCode', error);
+    }
+  }
+
+  async forgotPasswordForEmail(email: string): Promise<any> {
+    try {
+      const returnValue = await Auth.forgotPassword(email);
+      console.log('Success: ', returnValue);
+    } catch (error) {
+      console.log('error forgot password', error);
+    }
+  }
+
+  async forgotPasswordSendCodeAndNewPassword(email: string, code: string, newPassword: string): Promise<any> {
+    try {
+      const returnValue = await Auth.forgotPasswordSubmit(email, code, newPassword);
+    } catch (error) {
+      console.log('error forgotPasswordSendCodeAndNewPassword', error);
+    }
+  }
+
   /**
    * revoking all the auth tokens (id token, access token and refresh token)
    * which means the user is signed out from all the devices.
    */
   async logOut(): Promise<any> {
     try {
-        await Auth.signOut({ global: true });
+        const returnValue = await Auth.signOut({ global: true });
         this.setLoggedIn(false);
+        console.log('logOut:', returnValue);
     } catch (error) {
         console.log('error signing out: ', error);
     }

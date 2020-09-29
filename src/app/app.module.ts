@@ -12,16 +12,15 @@ import { LogoutComponent } from './logout/logout.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AuthenticationService } from './authentication/authentication.service';
 import { HomeComponent } from './home/home.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
-need to externalize these variables
-Amplify.configure({Auth: {
-  identityPoolId: 'ca-central-1:x',
-  region: 'ca-central-1',
-  userPoolId: 'ca-central-1_x',
-  userPoolWebClientId: 'x'
-}});
-
-
+// need to externalize these variables
+// Amplify.configure({Auth: {
+//   identityPoolId: 'ca-central-1:x',
+//   region: 'ca-central-1',
+//   userPoolId: 'ca-central-1_x',
+//   userPoolWebClientId: 'x'
+// }});
 
 
 @NgModule({
@@ -31,7 +30,8 @@ Amplify.configure({Auth: {
     RegisterComponent,
     LogoutComponent,
     ForgotPasswordComponent,
-    HomeComponent
+    HomeComponent,
+    VerifyEmailComponent
   ],
   imports: [
     BrowserModule,
