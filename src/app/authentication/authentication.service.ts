@@ -114,6 +114,15 @@ export class AuthenticationService {
     }
   }
 
+  async changePassword(oldPassword: string, newPassword: string): Promise<any> {
+    try {
+      const returnValue = await Auth.changePassword(this.congitoUser, oldPassword, newPassword);
+      console.log('changePassword', returnValue);
+    } catch (error) {
+      console.log('changePassword', error);
+    }
+  }
+
   async forgotPasswordForEmail(email: string): Promise<any> {
     try {
       const returnValue = await Auth.forgotPassword(email);
