@@ -23,6 +23,12 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 //   userPoolWebClientId: 'x'
 // }});
 
+Amplify.configure({Auth: {
+  identityPoolId: 'ca-central-1:6e7965ee-4561-4c18-9dfe-e7e631c1c75b',
+  region: 'ca-central-1',
+  userPoolId: 'ca-central-1_tlFi8fjdb',
+  userPoolWebClientId: '2d0goqvj9uvd2upiqg5ubopfjg'
+}});
 
 
 @NgModule({

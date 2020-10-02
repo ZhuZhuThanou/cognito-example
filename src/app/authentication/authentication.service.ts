@@ -89,6 +89,15 @@ export class AuthenticationService {
         this.congitoUser = await Auth.confirmSignIn(this.congitoUser, mfaCode);
         console.log('code confirmed', this.congitoUser);
         this.setLoggedIn(true);
+        const userAttributes = await Auth.userAttributes(this.congitoUser);
+        console.log(JSON.stringify(userAttributes));
+        const verifiedEmailAttribute = userAttributes.find( attribute => {
+          return attribute.getName() === 'email_verified';
+        });
+        console.log(JSON.stringify(verifiedEmailAttribute));
+        if (verifiedEmailAttribute.getValue() === 'false') {
+          console.log('We need to verify user email address before continue');
+        }
       } catch (error) {
           console.log('error confirming sign up', error);
           this.setLoggedIn(false);
