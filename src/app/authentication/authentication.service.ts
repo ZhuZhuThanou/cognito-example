@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Auth, CognitoUser } from '@aws-amplify/auth';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+
+// const httpOptions = {
+//   headers: new HttpHeaders({'Access-Control-Allow-Origin': 'http://localhost:4200'})
+// };
+
+const url = 'https://pspzvrwe5b.execute-api.ca-central-1.amazonaws.com/dev/';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +20,41 @@ export class AuthenticationService {
   private congitoUser: CognitoUser;
   private isLoggedIn: BehaviorSubject<boolean>;
 
-  constructor() {
+  
+
+  constructor(private httpClient: HttpClient) {
     this.isLoggedIn = new BehaviorSubject<boolean>(false);
     this.isRegisteredSuccess = new BehaviorSubject<boolean>(false);
    }
+
+  getHelloCORS(): void {
+    console.log('Calling Hello CORS');
+    // this.httpClient
+    // .get('https://pspzvrwe5b.execute-api.ca-central-1.amazonaws.com/dev/')
+    // .subscribe(data => {
+    //   console.log(data);
+    // });
+    fetch(url).then(response => {
+      return response.text();
+    })
+    .then(body => {
+      console.log(body);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+
+    fetch('http://localhost:8080/user')
+      .then(response => {
+        return response.text();
+      })
+      .then(body => {
+        console.log(body);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
 
   setLoggedIn(isLoggedIn): void {
     this.isLoggedIn.next(isLoggedIn);
@@ -41,7 +80,7 @@ export class AuthenticationService {
             password,
             attributes: {
               email: username,
-              phone_number: phoneNumber   // optional - E.164 number convention
+              //phone_number: phoneNumber   // optional - E.164 number convention
             }
         });
         console.log(this.registerUserTemp);
